@@ -1,0 +1,134 @@
+.container {
+  max-width: 1000px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-3xl);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.filters > div {
+  width: 200px;
+  margin-bottom: 0;
+}
+
+.count {
+  color: var(--color-text-light);
+}
+
+.empty {
+  text-align: center;
+  padding: var(--spacing-3xl);
+  color: var(--color-text-light);
+}
+
+/* Match Cards */
+.matchesList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.matchCard {
+  padding: var(--spacing-lg);
+}
+
+.matchHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.matchStatus {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.score {
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+}
+
+.matchContent {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.party {
+  flex: 1;
+}
+
+.party h4 {
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+}
+
+.name {
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+}
+
+.details {
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.arrow {
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+}
+
+.whyFit {
+  background-color: var(--color-background);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.matchActions {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding-top: var(--spacing-md);
+}
+
+/* Edit Modal */
+.editModal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.editActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+}

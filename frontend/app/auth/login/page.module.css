@@ -1,0 +1,27 @@
+.card {
+  text-align: center;
+}
+
+.card h1 {
+  margin-bottom: var(--spacing-sm);
+}
+
+.card > p {
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-xl);
+}
+
+.card form {
+  text-align: left;
+}
+
+.icon {
+  font-size: var(--text-4xl);
+  margin-bottom: var(--spacing-lg);
+}
+
+.note {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--spacing-lg);
+}

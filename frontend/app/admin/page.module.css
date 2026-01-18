@@ -1,0 +1,43 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background);
+  padding: var(--spacing-md);
+}
+
+.loginCard {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.logo span:first-child {
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+}
+
+.logo span:last-child {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+.loginCard h1 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-text-light);
+}
+
+.loginCard form {
+  text-align: left;
+}

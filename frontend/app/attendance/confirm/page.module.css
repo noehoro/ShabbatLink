@@ -1,0 +1,75 @@
+.card {
+  text-align: center;
+  padding: var(--spacing-2xl);
+}
+
+.loadingText {
+  color: var(--color-text-light);
+  margin-top: var(--spacing-lg);
+}
+
+.icon {
+  width: 80px;
+  height: 80px;
+  background-color: var(--color-success);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-3xl);
+  margin: 0 auto var(--spacing-xl);
+}
+
+.card h1 {
+  margin-bottom: var(--spacing-sm);
+}
+
+.subtitle {
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-xl);
+}
+
+.details {
+  background-color: var(--color-background);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  text-align: left;
+  margin-bottom: var(--spacing-xl);
+}
+
+.details h2 {
+  font-size: var(--text-lg);
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+
+.detailItem {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.detailItem:last-child {
+  border-bottom: none;
+}
+
+.detailLabel {
+  color: var(--color-text-light);
+  font-weight: 500;
+}
+
+.detailValue {
+  font-weight: 500;
+}
+
+.detailValue a {
+  color: var(--color-primary-dark);
+}
+
+.reminder {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-style: italic;
+}

@@ -1,0 +1,39 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding: var(--spacing-2xl) var(--spacing-xl);
+  }
+}
+
+/* Max width variants */
+.sm {
+  max-width: var(--max-width-sm);
+}
+
+.md {
+  max-width: var(--max-width-md);
+}
+
+.lg {
+  max-width: var(--max-width-lg);
+}
+
+.xl {
+  max-width: var(--max-width-xl);
+}
+
+.full {
+  max-width: none;
+}

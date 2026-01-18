@@ -1,0 +1,549 @@
+JLC Shabbat Matching Pilot
+
+Production Design Doc v1.1
+
+1. Overview
+
+JLC Shabbat Matching Pilot is a single event web experience that matches guests to hosts for one Friday night dinner. Guests and hosts submit structured preferences. A matching engine proposes pairings. Admins review and edit matches in a control panel before any invitations are sent. Hosts then receive match requests and can accept or decline. Personal details remain private until both sides accept.
+
+The product should feel curated, trustworthy, and culturally aligned with the Jewish Latin Center. The goal is not just placement but a warm, high quality experience that people want to repeat.
+
+2. Goals
+	•	Successfully place guests into host dinners for a single pilot week.
+	•	Preserve privacy until mutual consent.
+	•	Provide a high control admin panel to review and edit matches before they go out.
+	•	Make matching feel intentional through clear “why it’s a fit” explanations.
+	•	Set and enforce a strict zero tolerance no show policy.
+	•	Store profiles so future events can reuse previously entered information.
+
+3. Non Goals
+	•	Recurring weekly scheduling, rotations, or automated cutoffs.
+	•	Waitlists or standby management.
+	•	Families or children.
+	•	Dietary restrictions.
+	•	Payments processing or collecting money in product.
+	•	In app messaging or chat.
+	•	Social features like profiles browsing or friend networks.
+
+4. User Roles
+
+Guest
+
+A person looking to attend Friday night dinner at a host’s home.
+
+Host
+
+A person offering seats for Friday night dinner.
+
+Admin
+
+JLC staff who manage the matching process, review proposed matches, and oversee communications.
+
+5. Core Product Principles
+
+Consent first
+
+No phone number or address is visible until a match is accepted.
+
+Low friction
+
+Forms are fast, structured, and mobile friendly. No account creation required for pilot usage.
+
+Admin controlled outcomes
+
+The algorithm proposes. Admins decide. Nothing is sent without admin approval.
+
+Reliability over volume
+
+No shows are the primary failure mode. The product must communicate expectations and make confirmations explicit.
+
+Personalization without creepiness
+
+Use structured fields and vibe sliders. Avoid collecting unnecessary personal data.
+
+6. End to End Experience
+
+6.1 Guest Journey
+	1.	Guest opens the pilot link.
+	2.	Guest completes the guest form and acknowledges the no show policy.
+	3.	Guest receives a submission confirmation.
+	4.	Guest waits while matching occurs.
+	5.	If selected by a host, guest receives a match confirmation after acceptance, including address and contact details.
+	6.	Guest receives a day of reminder and must confirm attendance.
+
+6.2 Host Journey
+	1.	Host opens the host link.
+	2.	Host completes the host form and acknowledges the no show policy.
+	3.	Host receives a submission confirmation.
+	4.	Host receives match request(s) with guest summary and “why it’s a fit”.
+	5.	Host accepts or declines.
+	6.	Upon acceptance, host receives final details and guest contact information.
+
+6.3 Admin Journey
+	1.	Admin views aggregate supply and demand: guests, seats, and coverage by neighborhood and kosher level.
+	2.	Admin reviews proposed matches before anything is sent.
+	3.	Admin can edit matches: reassign guests, adjust seat allocations, or remove pairings.
+	4.	Admin approves sending match requests to hosts.
+	5.	Admin monitors accept and decline outcomes.
+	6.	Admin triggers final confirmations and reminders.
+	7.	Admin records no show outcomes after the event.
+
+7. Privacy and Consent Model
+
+7.1 Information Visibility Rules
+
+Before acceptance:
+	•	Guest can see host summary: neighborhood, languages, kosher level category, vibe summary, and contribution preference.
+	•	Host can see guest summary: name, neighborhood, languages, kosher requirement category, vibe summary, and contribution comfort range.
+	•	No addresses or phone numbers displayed to either party.
+
+After acceptance:
+	•	Guest sees host address and host phone.
+	•	Host sees guest phone.
+	•	Both receive a clear confirmation message with expectations and timing.
+
+7.2 Two Sided Consent Workflow
+
+Match Status Flow (5 states only):
+	•	proposed → Admin-only, not yet sent to host
+	•	requested → Sent to host, awaiting response
+	•	accepted → Host accepted, awaiting admin finalization
+	•	declined → Host declined
+	•	confirmed → Admin finalized, details released to both parties
+
+Workflow:
+	1.	Matches start as "proposed" (internal only).
+	2.	Admin approves → status becomes "requested", host receives email with action link.
+	3.	Host clicks accept → status becomes "accepted", admin notified (NO emails to guest yet).
+	4.	Admin finalizes → status becomes "confirmed", both parties receive details.
+	5.	Host clicks decline → status becomes "declined", admin notified.
+
+Key rule: Guest only receives confirmation AFTER admin finalizes, not when host accepts.
+
+8. Forms and Collected Inputs
+
+8.1 Guest Form Inputs
+
+Required
+	•	Full name
+	•	Email
+	•	Phone
+	•	Party size
+	•	Neighborhood (dropdown, Manhattan neighborhoods):
+		•	Upper West Side
+		•	Upper East Side
+		•	Midtown West
+		•	Midtown East
+		•	Murray Hill
+		•	Gramercy / Flatiron
+		•	Chelsea
+		•	Greenwich Village / West Village
+		•	East Village / NoHo
+		•	SoHo / Tribeca
+		•	Lower East Side
+		•	Financial District
+		•	Washington Heights
+		•	Harlem
+	•	Max travel distance preference (travel time selector):
+		•	15 minutes
+		•	30 minutes
+		•	45 minutes
+		•	60 minutes
+	•	Languages (multi select): English, Spanish, Portuguese
+	•	Kosher requirement:
+	•	Full kosher only
+	•	Mixed dairy and meat dishes ok
+	•	Vegetarian kosher home ok
+	•	Contribution comfort range:
+	•	Prefer not to say
+	•	$0 to $10
+	•	$10 to $25
+	•	$25 to $50
+	•	$50+
+	•	Vibe sliders (3 dimensions, scale 1-5):
+		•	Chabad energy: 1 (chill) ↔ 5 (full on)
+		•	Social intensity: 1 (intimate) ↔ 5 (big group)
+		•	Formality: 1 (casual) ↔ 5 (formal)
+	•	No show policy acknowledgement
+
+Optional
+	•	Notes to admin (short text)
+
+8.2 Host Form Inputs
+
+*** DATA MODEL NOTE ***
+For pilot, Guest and Host are single tables. However, conceptually separate:
+	- Profile data (name, email, phone, neighborhood, languages, kosher, vibe) = reusable
+	- Event data (party_size for guest, seats_available for host) = per-event
+
+Code should treat these as separate concerns even if stored together.
+This makes future migration to separate Profile + EventRegistration tables easier.
+******************************
+
+Required
+	•	Full name
+	•	Email
+	•	Phone
+	•	Neighborhood (same Manhattan dropdown as guest form)
+	•	Seats available (NOTE: this is event-specific, not a permanent profile attribute)
+	•	Languages (multi select): English, Spanish, Portuguese
+	•	Kosher level of home:
+	•	Full kosher
+	•	Mixed dairy and meat dishes
+	•	Vegetarian kosher home
+	•	Contribution preference:
+	•	No contribution needed
+	•	Prefer not to say
+	•	$0 to $10
+	•	$10 to $25
+	•	$25 to $50
+	•	$50+
+	•	Vibe sliders (same 3 dimensions, scale 1-5)
+	•	Private notes (admin only)
+	•	No show policy acknowledgement
+
+Hidden until acceptance
+	•	Address (exact)
+
+Optional
+	•	One line “what to expect” tagline
+
+9. Matching System
+
+IMPORTANT: The matching algorithm must be completely isolated and modular. It should be implemented as a standalone service with a clear interface, allowing it to be swapped, upgraded, or replaced without affecting any other part of the system. This enables future improvements (e.g., ML-based matching) to be plugged in seamlessly.
+
+9.1 Matching Constraints
+
+A host is eligible if:
+	•	Host has enough seats for the guest party.
+	•	Kosher compatibility is satisfied.
+	•	At least one language overlaps.
+	•	Travel preference is within reason based on neighborhood heuristic.
+
+*** CRITICAL: Party Size Capacity Math ***
+When party_size > 1, the algorithm MUST:
+	•	Never produce negative host capacity
+	•	Never assign the same guest to multiple hosts
+	•	Track remaining capacity in real-time during assignment
+	•	Fail gracefully if a guest cannot be placed (mark as unmatched)
+
+9.2 Kosher Compatibility Rules
+	•	Guest: Full kosher only
+	•	Matches only host: Full kosher
+	•	Guest: Mixed dairy and meat dishes ok
+	•	Matches host: Full kosher or Mixed dairy and meat dishes
+	•	Guest: Vegetarian kosher home ok
+	•	Matches any host kosher category
+
+9.3 Scoring and Ranking
+
+For eligible hosts, the system ranks options using:
+	•	Distance fit based on neighborhood and travel preference
+	•	Vibe match based on slider similarity
+	•	Contribution alignment as a soft preference
+	•	Capacity and distribution to prevent overloading one host
+
+The engine produces:
+	•	A recommended assignment set across all guests
+	•	Alternatives per guest for admin adjustment
+
+9.4 Architecture (Plug-and-Play Design)
+
+The matching engine is implemented as a completely isolated module:
+	•	Lives in its own directory with no dependencies on Flask or database ORM
+	•	Accepts plain Python data structures (dataclasses) as input
+	•	Returns plain Python data structures as output
+	•	Can be tested, run, and debugged independently
+	•	Uses an adapter layer to convert between ORM models and plain data
+
+To swap or upgrade the algorithm:
+	•	Implement the same interface (generate_matches)
+	•	Change one line in the adapter to use the new engine
+	•	No other code changes required
+
+10. “Why it’s a fit” Explanations
+
+10.1 Purpose
+
+Every match request should include a short explanation that makes the pairing feel intentional and increases acceptance rates.
+
+10.2 Approach
+	•	Explanations are generated from structured fields only.
+	•	Explanations must avoid any sensitive information.
+	•	LLM generated text is optional. If unavailable, use a deterministic template.
+
+10.3 Output Requirements
+	•	1 to 2 sentences
+	•	Friendly tone
+	•	Only factual references to shared language, kosher compatibility, vibe similarity, and travel fit
+
+11. Reliability and No Show Policy
+
+11.1 Policy Statement
+
+The product must clearly communicate that no shows are not acceptable. Guests must confirm attendance and communicate changes. Repeat offenders should be blocked from future events.
+
+11.2 Enforcement Mechanisms
+	•	Policy acknowledgement required at submission.
+	•	Day-of confirmation required from guests:
+		•	Guest receives reminder email with "Confirm I'm attending" link
+		•	Link uses signed token containing match_id
+		•	Clicking sets Match.guest_confirmed_at timestamp
+		•	Confirmation tracked PER MATCH (not on Guest profile)
+	•	Hosts can report no-shows:
+		•	Post-event email to host with "Report no-show" link
+		•	Server provides list of that host's confirmed guests (security)
+		•	Host can only flag guests who were actually matched to them
+		•	Sets Match.guest_no_show = true and increments Guest.no_show_count
+	•	Admin flagging:
+		•	Admin can mark guests with is_flagged in admin panel
+		•	Flagged guests visible in future events
+		•	Admin decides whether to block or warn
+
+12. Admin Control Panel
+
+12.1 Objectives
+	•	Provide full visibility into supply, demand, and match quality.
+	•	Allow editing and reviewing matches before sending.
+	•	Monitor host responses and confirmation state.
+	•	Provide an audit trail of actions.
+
+12.2 Key Views
+
+Dashboard
+	•	Total guests, total seats, guests placed, pending host decisions, confirmed guests
+	•	Alerts such as:
+	•	Unmatched guests
+	•	Guests with strict kosher requirements not covered
+	•	Hosts with unused capacity
+
+Hosts
+	•	Host list with key attributes and remaining capacity
+	•	Drilldown to view assigned guest requests and private notes
+
+Guests
+	•	Guest list with key attributes and matching status
+	•	Drilldown to view preferences and admin notes
+
+Matching Review
+	•	Proposed matches grouped by host with seat capacity indicators
+	•	Ability to reassign guests to different hosts
+	•	Visibility into “why it’s a fit” and score drivers
+	•	A clear approve action before sending requests
+
+Activity Log
+	•	History of actions and message sends
+
+12.3 Sending Controls (Pilot - Simplified)
+	•	Send match request to host
+	•	Finalize accepted match (triggers emails to both parties)
+
+Deferred to post-pilot:
+	•	Global pause toggle (use env var for now)
+	•	Resend functionality
+	•	Manual overrides
+
+13. Communications
+
+13.1 Required Notifications
+	•	Submission confirmation (host and guest)
+	•	Host match request with accept or decline
+	•	Guest confirmation after acceptance
+	•	Day of reminder + confirm attendance link
+	•	Host day of summary with guest list and timing reminders
+
+13.2 Language Support
+
+For pilot (simplified):
+	•	All emails in English by default
+	•	Optional: Include brief Spanish/Portuguese translations inline in same email
+	•	Full multi-language template system deferred to post-pilot
+
+Post-pilot:
+	•	Separate templates per language
+	•	Language selection based on user preference
+	•	Admin override per user
+
+14. Data Retention and Profile Reuse
+
+Hosts and guests should not need to re enter everything in the future. The system stores their profiles and preferences, allowing quick reuse and edits for future events. For the pilot, this manifests as:
+	•	Returning users can access their previous info via email magic link authentication:
+		•	User enters email on returning user page
+		•	System sends a one-time login link to their email
+		•	Link expires after 15 minutes
+		•	Upon clicking, user can view and edit their saved profile
+	•	Admin can view historical participation and no show flags.
+
+15. Success Metrics
+
+Pilot success should be evaluated using:
+	•	Placement rate: percent of guest requests that become confirmed
+	•	Acceptance rate: percent of requests accepted by hosts
+	•	No show rate
+	•	Admin time spent per match
+	•	Post event satisfaction indicator:
+	•	Host: would host again yes or no
+	•	Guest: would attend again yes or no
+	•	Match quality proxy:
+	•	Percent of matches that both sides say they would repeat
+
+16. Resolved Decisions
+	•	Multiple host requests per guest: NO - each guest receives one match at a time.
+	•	Admin manual finalization: YES - admin must manually finalize after host acceptance.
+	•	Guest preview of hosts: NO - guests do not see potential hosts before acceptance to protect privacy.
+
+17. Technical Specifications
+
+17.1 Architecture
+
+Frontend
+	•	Framework: Next.js (React)
+	•	Styling: CSS Modules (scoped, no inline styles)
+	•	Deployment: Render
+
+Backend
+	•	Framework: Flask (Python)
+	•	ORM: SQLAlchemy
+	•	Database: PostgreSQL
+	•	Deployment: Render
+
+17.2 Authentication
+
+*** THREE DISTINCT TOKEN TYPES - KEEP SEPARATE ***
+
+1. Admin Session Token
+	•	Simple password protection for admin panel
+	•	Single shared password for all JLC admin staff
+	•	Password stored as environment variable
+	•	On successful login, returns session token stored in browser
+	•	Session token required for all /api/admin/* endpoints
+
+2. Magic Link Token (for profile editing)
+	•	One-time use token sent via email
+	•	User requests link by entering their email
+	•	System generates secure token (expires in 15 minutes)
+	•	Link format: /auth/verify?token={magic_token}
+	•	On verification, returns session token for profile editing
+	•	Used ONLY for returning users to edit their profile
+
+3. Match Action Token (for host accept/decline)
+	•	Signed, single-purpose token embedded in match request email
+	•	Allows one-click accept/decline WITHOUT logging in
+	•	Token encodes: match_id + action + expiration + signature
+	•	Link format: /match/respond?token={signed_action_token}
+	•	No session created - just performs the action and shows confirmation
+	•	Separate from magic link auth - hosts don't need to "log in" to respond
+
+WHY SEPARATE:
+- Profile editing = needs full session (magic link → session)
+- Match response = one-click action (signed token, no session)
+- This keeps host UX frictionless while profile editing stays secure
+
+17.3 Email System
+
+For pilot phase:
+	•	Email sending is simulated (logged to console and database)
+	•	Admin panel shows email queue and simulated send status
+	•	Real email integration to be added post-pilot (recommended: SendGrid or Resend)
+
+Email types to simulate:
+	•	Submission confirmations
+	•	Magic link authentication
+	•	Match requests to hosts
+	•	Match confirmations to guests
+	•	Day-of reminders
+
+17.4 API Structure
+
+Guest Endpoints
+	•	POST /api/guests - Create guest registration
+	•	GET /api/guests/{id} - Get guest details (auth required)
+	•	PUT /api/guests/{id} - Update guest profile (auth required)
+
+Host Endpoints
+	•	POST /api/hosts - Create host registration
+	•	GET /api/hosts/{id} - Get host details (magic link session required)
+	•	PUT /api/hosts/{id} - Update host profile (magic link session required)
+
+Match Response Endpoint (uses signed action token, NOT session auth)
+	•	POST /api/matches/respond - Accept or decline match
+		•	Uses signed action token from email (no login required)
+		•	Token contains match_id, action, expiration
+		•	On accept: status → "accepted", notify admin only
+		•	On decline: status → "declined", notify admin only
+
+Admin Endpoints (Pilot MVP - minimal set)
+	•	POST /api/admin/auth - Admin login
+	•	GET /api/admin/dashboard - Dashboard stats and alerts
+	•	GET /api/admin/guests - List all guests (basic filtering)
+	•	GET /api/admin/guests/{id} - Guest detail
+	•	GET /api/admin/hosts - List all hosts (basic filtering)
+	•	GET /api/admin/hosts/{id} - Host detail
+	•	GET /api/admin/matches - List all matches
+	•	POST /api/admin/matches/generate - Run matching algorithm
+	•	PUT /api/admin/matches/{id} - Edit match (reassign host)
+	•	DELETE /api/admin/matches/{id} - Remove proposed match
+	•	POST /api/admin/matches/{id}/send - Send match request to host
+	•	POST /api/admin/matches/{id}/finalize - Finalize accepted match (sends details to both)
+	•	POST /api/admin/guests/{id}/flag - Flag guest for no-show
+
+Deferred to post-pilot:
+	•	Email resend endpoints
+	•	Activity log with filters/pagination
+	•	Settings/pause toggle (use env var for pilot)
+	•	Advanced filtering and sorting
+
+Auth Endpoints
+	•	POST /api/auth/request-link - Request magic link (for profile editing)
+	•	GET /api/auth/verify - Verify magic link token, return session
+
+18. Design and Branding
+
+18.1 Color Palette (aligned with JLC branding)
+
+Primary Colors
+	•	Teal / Turquoise: #7ECEC5 (primary brand color from JLC logo)
+	•	Warm Bronze / Brown: #8B7355 (accent color from JLC logo)
+
+Supporting Colors
+	•	Cream / Off-white: #FDF9F3 (warm background)
+	•	Deep Teal: #5BA39A (hover states, emphasis)
+	•	Soft Gold: #D4A84B (highlights, icons)
+	•	Charcoal: #2D3436 (text)
+	•	Light Gray: #F5F5F5 (secondary backgrounds)
+
+18.2 Typography
+
+	•	Headings: Elegant serif (e.g., Playfair Display or similar)
+	•	Body: Clean sans-serif (e.g., DM Sans or similar)
+	•	Feel: Warm, trustworthy, culturally aligned
+
+18.3 Design Principles
+
+	•	Clean, uncluttered layouts
+	•	Generous whitespace
+	•	Warm and welcoming tone
+	•	Mobile-first responsive design
+	•	Subtle animations for delight
+	•	Clear visual hierarchy
+	•	Accessible contrast ratios
+
+18.4 Styling Approach (CSS Modules)
+
+	•	All styling via CSS Modules (scoped, maintainable)
+	•	NO inline styles anywhere in the codebase
+	•	Global CSS variables for colors, fonts, spacing, shadows
+	•	Each component has co-located ComponentName.module.css file
+	•	Shared utility classes in styles/utilities.css for common patterns
+	•	Responsive breakpoints defined as CSS variables
+
+19. Future Extensions
+
+After the pilot proves successful:
+	•	Run as a weekly cadence
+	•	Add waitlists and last minute placements
+	•	Host rotation and fairness controls
+	•	More sophisticated distance estimation
+	•	Repeat matching and opt in social graph improvements
+	•	Donation routing to JLC
+	•	Real email integration with SendGrid or Resend

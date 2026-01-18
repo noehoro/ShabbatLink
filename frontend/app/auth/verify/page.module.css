@@ -1,0 +1,17 @@
+.loadingCard {
+  text-align: center;
+  padding: 4rem;
+}
+
+.loadingText {
+  margin-top: 1rem;
+  color: var(--color-text-light);
+}
+
+.card {
+  text-align: center;
+}
+
+.link {
+  margin-top: 1rem;
+}
