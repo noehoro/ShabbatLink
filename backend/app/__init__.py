@@ -13,10 +13,13 @@ def create_app(config=None):
     
     # Load configuration
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key')
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-        'DATABASE_URL', 
-        'sqlite:///shabbatlink.db'
-    )
+    
+    # Handle DATABASE_URL - Render uses postgres:// but SQLAlchemy needs postgresql://
+    database_url = os.environ.get('DATABASE_URL', 'sqlite:///shabbatlink.db')
+    if database_url.startswith('postgres://'):
+        database_url = database_url.replace('postgres://', 'postgresql://', 1)
+    app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+    
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['ADMIN_PASSWORD'] = os.environ.get('ADMIN_PASSWORD', 'shabbatlink2024')
     app.config['FRONTEND_URL'] = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
@@ -28,10 +31,15 @@ def create_app(config=None):
     # Initialize extensions
     db.init_app(app)
     
-    # Configure CORS
+    # Configure CORS - allow both local development and production frontend
+    allowed_origins = [
+        app.config['FRONTEND_URL'],
+        "http://localhost:3000",
+        "https://shabbatlink-frontend.onrender.com"
+    ]
     CORS(app, resources={
         r"/api/*": {
-            "origins": [app.config['FRONTEND_URL'], "http://localhost:3000"],
+            "origins": allowed_origins,
             "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
             "allow_headers": ["Content-Type", "Authorization"],
             "supports_credentials": True
