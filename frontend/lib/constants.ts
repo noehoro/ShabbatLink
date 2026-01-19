@@ -109,18 +109,18 @@ export const HOST_CONTRIBUTION_OPTIONS = [
 // Vibe slider labels
 export const VIBE_LABELS = {
   chabad: {
-    name: 'Chabad Energy',
+    label: 'Chabad Energy',
     low: 'Chill',
     high: 'Full on',
   },
   social: {
-    name: 'Social Intensity',
+    label: 'Social Intensity',
     low: 'Intimate',
     high: 'Big group',
   },
   formality: {
-    name: 'Formality',
+    label: 'Formality',
     low: 'Casual',
     high: 'Formal',
   },
-} as const;
+};
