@@ -74,29 +74,29 @@ export const TRAVEL_TIMES = [
   { value: 60, label: '60 minutes' },
 ] as const;
 
-// Gender options (for registration forms)
+// Gender options (for Select dropdown)
 export const GENDER_OPTIONS = [
   { value: 'male', label: 'Male' },
   { value: 'female', label: 'Female' },
   { value: 'other', label: 'Other' },
   { value: 'prefer_not_to_say', label: 'Prefer not to say' },
-] as const;
+];
 
-// Guest kosher options (dropdown format)
+// Guest kosher options (for RadioGroup - simple strings)
 export const GUEST_KOSHER_OPTIONS = [
-  { value: 'full_kosher_only', label: 'Full kosher only' },
-  { value: 'mixed_ok', label: 'Mixed dairy and meat dishes ok' },
-  { value: 'vegetarian_ok', label: 'Vegetarian kosher home ok' },
-] as const;
+  'Full kosher only',
+  'Mixed dairy and meat dishes ok',
+  'Vegetarian kosher home ok',
+];
 
-// Host kosher options (dropdown format)
+// Host kosher options (for RadioGroup - simple strings)
 export const HOST_KOSHER_OPTIONS = [
-  { value: 'full_kosher', label: 'Full kosher' },
-  { value: 'mixed', label: 'Mixed dairy and meat dishes' },
-  { value: 'vegetarian', label: 'Vegetarian kosher home' },
-] as const;
+  'Full kosher',
+  'Mixed dairy and meat dishes',
+  'Vegetarian kosher home',
+];
 
-// Host contribution options (dropdown format)
+// Host contribution options (for Select dropdown)
 export const HOST_CONTRIBUTION_OPTIONS = [
   { value: 'none', label: 'No contribution needed' },
   { value: 'prefer_not_to_say', label: 'Prefer not to say' },
@@ -104,7 +104,7 @@ export const HOST_CONTRIBUTION_OPTIONS = [
   { value: '10_25', label: '$10 to $25' },
   { value: '25_50', label: '$25 to $50' },
   { value: '50_plus', label: '$50+' },
-] as const;
+];
 
 // Vibe slider labels
 export const VIBE_LABELS = {
