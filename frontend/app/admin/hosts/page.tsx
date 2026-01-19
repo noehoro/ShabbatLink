@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Card, Alert, Spinner, Badge, Button, Modal } from '@/components/ui';
-import { getAdminHosts, getAdminHostDetail, sendHostSummary, sendNoShowReportRequest, ApiError } from '@/lib/api';
+import { Card, Alert, Spinner, Badge, Button, Modal } from '../../../components/ui';
+import { getAdminHosts, getAdminHostDetail, sendHostSummary, sendNoShowReportRequest, ApiError } from '../../../lib/api';
 import styles from '../guests/page.module.css';
 
 export default function AdminHostsPage() {
