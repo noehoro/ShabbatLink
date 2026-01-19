@@ -14,8 +14,11 @@ RUN npm ci
 FROM base AS builder
 WORKDIR /app
 
-COPY --from=deps /app/node_modules ./node_modules
+# First copy all source files
 COPY frontend/ .
+# Then remove any local node_modules and copy the Linux-built ones
+RUN rm -rf node_modules
+COPY --from=deps /app/node_modules ./node_modules
 
 # Set environment variables for build
 ARG NEXT_PUBLIC_API_URL
