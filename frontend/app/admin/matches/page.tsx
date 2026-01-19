@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Card, Alert, Spinner, Badge, Button, Modal } from '../../../components/ui';
-import { Select } from '../../../components/form';
+import { Card, Alert, Spinner, Badge, Button, Modal } from '@/components/ui';
+import { Select } from '@/components/form';
 import { 
   getAdminMatches, 
   generateMatches, 
@@ -14,8 +14,8 @@ import {
   getAdminHosts,
   sendDayOfReminder,
   ApiError 
-} from '../../../lib/api';
-import { MATCH_STATUSES } from '../../../lib/constants';
+} from '@/lib/api';
+import { MATCH_STATUSES } from '@/lib/constants';
 import styles from './page.module.css';
 
 function MatchesContent() {

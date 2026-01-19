@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Layout } from '../../../components/layout';
-import { Button, Card, Alert } from '../../../components/ui';
-import { TextInput, Select, MultiSelect, RadioGroup, VibeSlider, Checkbox, Textarea } from '../../../components/form';
-import { createHost, ApiError } from '../../../lib/api';
-import { NEIGHBORHOODS, LANGUAGES, HOST_KOSHER_OPTIONS, HOST_CONTRIBUTION_OPTIONS, VIBE_LABELS } from '../../../lib/constants';
+import { Layout } from '@/components/layout';
+import { Button, Card, Alert } from '@/components/ui';
+import { TextInput, Select, MultiSelect, RadioGroup, VibeSlider, Checkbox, Textarea } from '@/components/form';
+import { createHost, ApiError } from '@/lib/api';
+import { NEIGHBORHOODS, LANGUAGES, HOST_KOSHER_OPTIONS, HOST_CONTRIBUTION_OPTIONS, VIBE_LABELS } from '@/lib/constants';
 import styles from './page.module.css';
 
 const SEAT_OPTIONS = Array.from({ length: 20 }, (_, i) => ({

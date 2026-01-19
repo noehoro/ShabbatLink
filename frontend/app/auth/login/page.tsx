@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Layout } from '../../../components/layout';
-import { Button, Card, Alert } from '../../../components/ui';
-import { TextInput } from '../../../components/form';
-import { requestMagicLink, ApiError } from '../../../lib/api';
+import { Layout } from '@/components/layout';
+import { Button, Card, Alert } from '@/components/ui';
+import { TextInput } from '@/components/form';
+import { requestMagicLink, ApiError } from '@/lib/api';
 import styles from './page.module.css';
 
 export default function LoginPage() {

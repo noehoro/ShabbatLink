@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Layout } from '../../../components/layout';
-import { Card, Alert, Spinner } from '../../../components/ui';
-import { verifyMagicLink, setAuthToken, ApiError } from '../../../lib/api';
+import { Layout } from '@/components/layout';
+import { Card, Alert, Spinner } from '@/components/ui';
+import { verifyMagicLink, setAuthToken, ApiError } from '@/lib/api';
 import styles from './page.module.css';
 
 function VerifyContent() {

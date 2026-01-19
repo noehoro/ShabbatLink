@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Card, Alert, Spinner, Badge, Button } from '../../../components/ui';
-import { getDashboard, DashboardStats, ApiError } from '../../../lib/api';
+import { Card, Alert, Spinner, Badge, Button } from '@/components/ui';
+import { getDashboard, DashboardStats, ApiError } from '@/lib/api';
 import styles from './page.module.css';
 
 export default function AdminDashboard() {

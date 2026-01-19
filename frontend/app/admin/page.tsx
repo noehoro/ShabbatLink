@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button, Card, Alert, Spinner } from '../../components/ui';
-import { TextInput } from '../../components/form';
-import { adminLogin, setAdminToken, getAdminToken, ApiError } from '../../lib/api';
+import { Button, Card, Alert, Spinner } from '@/components/ui';
+import { TextInput } from '@/components/form';
+import { adminLogin, setAdminToken, getAdminToken, ApiError } from '@/lib/api';
 import styles from './page.module.css';
 
 export default function AdminLoginPage() {

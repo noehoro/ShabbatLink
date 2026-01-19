@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Card, Alert, Spinner, Badge, Button, Modal } from '../../../components/ui';
-import { getAdminGuests, getAdminGuestDetail, flagGuest, ApiError } from '../../../lib/api';
-import { MATCH_STATUSES } from '../../../lib/constants';
+import { Card, Alert, Spinner, Badge, Button, Modal } from '@/components/ui';
+import { getAdminGuests, getAdminGuestDetail, flagGuest, ApiError } from '@/lib/api';
+import { MATCH_STATUSES } from '@/lib/constants';
 import styles from './page.module.css';
 
 export default function AdminGuestsPage() {

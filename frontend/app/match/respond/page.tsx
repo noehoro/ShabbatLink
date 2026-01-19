@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Layout } from '../../../components/layout';
-import { Button, Card, Alert, Spinner, Badge } from '../../../components/ui';
-import { respondToMatch, getMatchDetails, ApiError } from '../../../lib/api';
+import { Layout } from '@/components/layout';
+import { Button, Card, Alert, Spinner, Badge } from '@/components/ui';
+import { respondToMatch, getMatchDetails, ApiError } from '@/lib/api';
 import styles from './page.module.css';
 
 function MatchResponseContent() {
