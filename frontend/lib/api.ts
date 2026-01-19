@@ -290,10 +290,10 @@ export async function finalizeMatch(id: string): Promise<{ message: string }> {
   });
 }
 
-export async function editMatch(id: string, data: { host_id: string }): Promise<Match> {
+export async function editMatch(id: string, hostId: string): Promise<Match> {
   return apiFetch(`/admin/matches/${id}`, {
     method: 'PUT',
-    body: JSON.stringify(data),
+    body: JSON.stringify({ host_id: hostId }),
   });
 }
 
