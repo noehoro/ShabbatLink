@@ -175,7 +175,11 @@ export async function requestMagicLink(email: string): Promise<{ message: string
   });
 }
 
-export async function verifyMagicLink(token: string): Promise<{ token: string; user_type: string; user_id: string }> {
+export async function verifyMagicLink(token: string): Promise<{ 
+  token: string; 
+  user_type: string; 
+  user: { id: string };
+}> {
   return apiFetch(`/auth/verify?token=${token}`);
 }
 
