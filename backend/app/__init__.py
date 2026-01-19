@@ -35,8 +35,9 @@ def create_app(config=None):
     allowed_origins = [
         app.config['FRONTEND_URL'],
         "http://localhost:3000",
-        "https://shabbatlink-frontend.onrender.com",
-        "https://shabbatlink-frontend-v2.onrender.com"
+        "https://shabbatlink.com",
+        "https://www.shabbatlink.com",
+        "https://shabbatlink-frontend.onrender.com"
     ]
     CORS(app, resources={
         r"/api/*": {
