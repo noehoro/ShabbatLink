@@ -341,7 +341,7 @@ export async function confirmAttendance(token: string): Promise<{
 // No-show reporting
 export async function getNoShowReportForm(token: string): Promise<{ 
   host_name: string;
-  guests: Array<{ id: string; full_name: string; party_size: number }>;
+  guests: Array<{ match_id: string; guest_name: string; party_size: number }>;
 }> {
   return apiFetch(`/noshow/form?token=${token}`);
 }
