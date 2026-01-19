@@ -5,9 +5,11 @@ export const metadata: Metadata = {
   title: 'ShabbatLink - Find Your Shabbat Dinner',
   description: 'Connect with hosts and guests for Friday night Shabbat dinners through the Jewish Latin Center',
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/favicon.ico',
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
   },
 };
 
