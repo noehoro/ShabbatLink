@@ -96,14 +96,14 @@ export const HOST_KOSHER_OPTIONS = [
   'Vegetarian kosher home',
 ];
 
-// Host contribution options (for Select dropdown)
+// Host contribution options (for RadioGroup - simple strings)
 export const HOST_CONTRIBUTION_OPTIONS = [
-  { value: 'none', label: 'No contribution needed' },
-  { value: 'prefer_not_to_say', label: 'Prefer not to say' },
-  { value: '0_10', label: '$0 to $10' },
-  { value: '10_25', label: '$10 to $25' },
-  { value: '25_50', label: '$25 to $50' },
-  { value: '50_plus', label: '$50+' },
+  'No contribution needed',
+  'Prefer not to say',
+  '$0 to $10',
+  '$10 to $25',
+  '$25 to $50',
+  '$50+',
 ];
 
 // Vibe slider labels
