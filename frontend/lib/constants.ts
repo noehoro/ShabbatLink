@@ -73,3 +73,54 @@ export const TRAVEL_TIMES = [
   { value: 45, label: '45 minutes' },
   { value: 60, label: '60 minutes' },
 ] as const;
+
+// Gender options (for registration forms)
+export const GENDER_OPTIONS = [
+  { value: 'male', label: 'Male' },
+  { value: 'female', label: 'Female' },
+  { value: 'other', label: 'Other' },
+  { value: 'prefer_not_to_say', label: 'Prefer not to say' },
+] as const;
+
+// Guest kosher options (dropdown format)
+export const GUEST_KOSHER_OPTIONS = [
+  { value: 'full_kosher_only', label: 'Full kosher only' },
+  { value: 'mixed_ok', label: 'Mixed dairy and meat dishes ok' },
+  { value: 'vegetarian_ok', label: 'Vegetarian kosher home ok' },
+] as const;
+
+// Host kosher options (dropdown format)
+export const HOST_KOSHER_OPTIONS = [
+  { value: 'full_kosher', label: 'Full kosher' },
+  { value: 'mixed', label: 'Mixed dairy and meat dishes' },
+  { value: 'vegetarian', label: 'Vegetarian kosher home' },
+] as const;
+
+// Host contribution options (dropdown format)
+export const HOST_CONTRIBUTION_OPTIONS = [
+  { value: 'none', label: 'No contribution needed' },
+  { value: 'prefer_not_to_say', label: 'Prefer not to say' },
+  { value: '0_10', label: '$0 to $10' },
+  { value: '10_25', label: '$10 to $25' },
+  { value: '25_50', label: '$25 to $50' },
+  { value: '50_plus', label: '$50+' },
+] as const;
+
+// Vibe slider labels
+export const VIBE_LABELS = {
+  chabad: {
+    name: 'Chabad Energy',
+    low: 'Chill',
+    high: 'Full on',
+  },
+  social: {
+    name: 'Social Intensity',
+    low: 'Intimate',
+    high: 'Big group',
+  },
+  formality: {
+    name: 'Formality',
+    low: 'Casual',
+    high: 'Formal',
+  },
+} as const;

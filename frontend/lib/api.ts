@@ -272,7 +272,7 @@ export async function getAdminMatches(status?: string): Promise<Match[]> {
   return apiFetch(`/admin/matches${params}`);
 }
 
-export async function generateMatches(): Promise<{ matches: Match[]; message: string }> {
+export async function generateMatches(): Promise<{ matches: Match[]; matches_created: number; unmatched_guests: string[]; message: string }> {
   return apiFetch('/admin/matches/generate', {
     method: 'POST',
   });
