@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { getAdminToken, clearAdminToken } from '@/lib/api';
-import { Spinner } from '@/components/ui';
+import { getAdminToken, clearAdminToken } from '../../lib/api';
+import { Spinner } from '../../components/ui';
 import styles from './layout.module.css';
 
 export default function AdminLayout({

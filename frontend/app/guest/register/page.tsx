@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Layout } from '@/components/layout';
-import { Button, Card, Alert } from '@/components/ui';
-import { TextInput, Select, MultiSelect, RadioGroup, VibeSlider, Checkbox, Textarea } from '@/components/form';
-import { createGuest, ApiError } from '@/lib/api';
-import { NEIGHBORHOODS, TRAVEL_TIMES, LANGUAGES, GENDER_OPTIONS, GUEST_KOSHER_OPTIONS, VIBE_LABELS } from '@/lib/constants';
+import { Layout } from '../../../components/layout';
+import { Button, Card, Alert } from '../../../components/ui';
+import { TextInput, Select, MultiSelect, RadioGroup, VibeSlider, Checkbox, Textarea } from '../../../components/form';
+import { createGuest, ApiError } from '../../../lib/api';
+import { NEIGHBORHOODS, TRAVEL_TIMES, LANGUAGES, GENDER_OPTIONS, GUEST_KOSHER_OPTIONS, VIBE_LABELS } from '../../../lib/constants';
 import styles from './page.module.css';
 
 const PARTY_SIZES = [
