@@ -318,10 +318,10 @@ export async function getMatchDetails(token: string): Promise<{ match: Match; gu
   return apiFetch(`/matches/details?token=${token}`);
 }
 
-export async function respondToMatch(token: string, action: 'accept' | 'decline'): Promise<{ message: string }> {
+export async function respondToMatch(token: string, action?: 'accept' | 'decline'): Promise<{ message: string; status: string }> {
   return apiFetch('/matches/respond', {
     method: 'POST',
-    body: JSON.stringify({ token, action }),
+    body: JSON.stringify(action ? { token, action } : { token }),
   });
 }
 
