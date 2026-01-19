@@ -322,7 +322,12 @@ export async function respondToMatch(token: string, action: 'accept' | 'decline'
 }
 
 // Attendance confirmation
-export async function confirmAttendance(token: string): Promise<{ message: string }> {
+export async function confirmAttendance(token: string): Promise<{ 
+  message: string; 
+  host_name: string; 
+  host_address: string; 
+  host_phone: string;
+}> {
   return apiFetch('/attendance/confirm', {
     method: 'POST',
     body: JSON.stringify({ token }),
@@ -330,7 +335,10 @@ export async function confirmAttendance(token: string): Promise<{ message: strin
 }
 
 // No-show reporting
-export async function getNoShowReportForm(token: string): Promise<{ host: Host; guests: Guest[] }> {
+export async function getNoShowReportForm(token: string): Promise<{ 
+  host_name: string;
+  guests: Array<{ id: string; full_name: string; party_size: number }>;
+}> {
   return apiFetch(`/noshow/form?token=${token}`);
 }
 
